@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../../static/CSS/style.css">
+	<title>Product</title>
+</head>
+<body>
+
+	<header>
+		{% include 'product/navbar.html' %}
+	</header>
+		
+	{% if messages %}
+		{% for message in messages %}
+			{{ message }}
+		{% endfor%}
+	{% endif %}
+
+	{% block home %}
+	{% endblock %}
+
+	{% block scan %}
+	{% endblock %}
+
+	{% block detail %}
+	{% endblock %}
+	
+</body>
+</html>

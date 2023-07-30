@@ -1,0 +1,28 @@
+{% extends 'product/base.html' %}
+
+{% block detail %}
+
+{% if user.is_authenticated %}
+	<h1>Thông tin chi tiết</h1>
+	{# Hiện thị thông tin #}
+
+	{# {%load static %} #}
+	<div class="product-detail card">
+		{# <img src="{% static '/img/QOUTE.jpg' %}" alt="Ảnh sản phẩm"> #}
+		<div class="container-img">
+			<img src='/../{{ product.img }}' alt="Ảnh sản phẩm">
+		</div>
+		<div class="container-other-product-information">
+			<p class="title"><span class="attribute title">Tên:</span> {{product.title}}</p>
+			<p><span class="attribute amount">Số lượng:</span> {{product.amount}}</p>
+			<p><span class="attribute price">Giá:</span> {{product.price}}đ</p>
+			<p><span class="attribute description">Mô tả:</span> {{product.description}}</p>
+			{# <p><span class="attribute">Mô tả:</span> {{product.img}}</p> #}
+		</div>
+	</div>
+
+{% else %}
+	{% include 'product/login.html' %}
+{% endif %}
+
+{% endblock %}

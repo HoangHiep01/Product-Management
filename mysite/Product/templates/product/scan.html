@@ -1,0 +1,25 @@
+{% extends 'product/base.html' %}
+
+{% block scan %}
+
+{% if user.is_authenticated %}
+	<h1>Quét mã</h1>
+	<div class="container-scan">
+		<form method="POST" action="{% url 'detail' %}" class="scan-form">
+			{% csrf_token %}
+			<div class="container-scan-item">
+				<div class="container-scan-item-input">
+					<input type="text" class="form-control" name="id_product" placeholder="ID product" required value={{ID_auto}}>
+				</div>
+				<div class="container-scan-item-button">
+					<button type="submit" class="button-scan"><span class="button-scan-text">Quét</span></button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+{% else %}
+	{% include 'product/login.html' %}
+{% endif %}
+
+{% endblock %}

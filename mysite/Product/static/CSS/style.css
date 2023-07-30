@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+/*|| RESET*/
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font : Nunito, monospace;
+}
+
+/*|| VARIABLES */
+:root{
+	/* COLOR */
+	--BGCOLOR : #282828;
+	--NAV-BGCOLOR : #0c0c17;
+}
+
+
+/* GENERAL STYLES */
+
+html {
+	scroll-behavior: smooth;
+	background: var(--BGCOLOR);
+}
+
+body {
+	font: 1.5rem "Nunito", sans-serif;
+	min-height: 100vh;
+/*	background-color: #475569;*/
+/*	background-color: darkred;*/
+/*	background-image: radial-gradient(whitesmoke, #475569);*/
+}
+
+
+/*|| NAV*/
+nav {
+	display: flex;
+	flex-flow: row wrap ;
+	background: var(--NAV-BGCOLOR);
+	width: 100%;
+}
+
+ul li {
+	list-style: none;
+}
+.homepage {
+	width: 20%;
+	font-size: 3rem;
+}
+
+.function {
+	width: 20%;
+	font-size: 1.5rem;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-end;
+}
+.navbar-list-item {
+	width: 100%;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+}
+.nav-item {
+	width: 50%;
+}
+
+/*|| LINK*/
+
+a , a:visited {
+	text-decoration: none;
+	color: whitesmoke;
+}
+
+a:hover, a:focus {
+	color: lightblue;
+}
+
+h1 {
+	color: whitesmoke;
+}
+
+/*|| FORM*/
+
+
+input.form-control {
+	width: 100%;
+	height: 50%;
+	font-size: 1.5rem;
+	border-radius: 8px;
+	padding: 0% 5%;
+	border: none;
+	border-right: 1.5px solid #282828;
+	border-bottom: 1.5px solid #282828;
+	outline: none;
+	box-shadow: 2px 2px 6px hsla(100, 100%, 100%, 0.5);
+}
+
+
+button {
+/*	width: 50%;
+	height: 20%;
+	font-size: 1rem;*/
+	border-radius: 8px;
+	border: none;
+	outline: none;
+	box-shadow: 1px 1px 2px black;
+}
+
+button:hover, button:focus {
+	cursor: pointer;
+}
+
+.container-form {
+/*	background: skyblue;*/
+	width: 100%;
+	height: 90vh;
+	display: flex;
+	flex-flow: column wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.container-form-information {
+	width: 400px;
+	height: 300px;
+/*	background: yellowgreen;*/
+	display: flex;
+	flex-flow: column wrap;
+	align-content: space-between;
+	justify-content: center;
+	align-items:  center;
+}
+
+.container-form-information-user {
+	width: 100%;
+	height: 40%;
+}
+
+.container-form-button {
+	width: 100%;
+	height: 20%;
+	display: flex !important;
+	flex-flow: column wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.button-login {
+	width: 40%;
+	height: 85%;
+}
+
+.button-login-text {
+	font: 16px;
+	font-weight: bold;
+}
+
+/*|| Scan*/
+
+.container-scan {
+	width: 100%;
+/*	height: max(20vh, calc(100%));*/
+	height: 20vh;
+	display: flex;
+	flex-flow: row wrap;
+
+}
+
+.scan-form {
+	width: 100%;
+	height: 100%;
+}
+
+.container-scan-item {
+	width: 50%;
+	height: 100%;
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.container-scan-item-input {
+	width: 50%;
+	height: 100%;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.container-scan-item-button {
+	width: 50%;
+	height: 100%;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+input.form-control-ID {
+	width: 80%;
+	height: 100%;
+}
+
+.button-scan {
+	width: 25%;
+	height: 25%;
+}
+
+.button-scan-text {
+	font: 16px;
+	font-weight: bold;
+}
+
+/*|| Detail*/
+
+hr {
+	background-color: white;
+}
+
+.product-detail {
+	width: 100%;
+	height: 60vh;
+	display:  flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.container-img {
+	width: 30%;
+	height: 90%;
+	display: flex;
+	object-fit: contain;
+}
+
+.container-other-product-information{
+	width: 60%;
+	height: 90%;
+	display: flex;
+	flex-flow: column; wrap;
+	align-items: flex-start;
+}
+
+.attribute{
+	font-size: 25px;
+	font-weight: bold;
+	color: white;
+}
+
+p {
+	font-size: 25px;
+	color: white;
+}
+
+.title {
+	font-size: 50px;
+	position: relative;
+}
+.title::before {
+	content: "";
+	width: 100%;
+	height: 2px;
+	background: white;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+.card {
+	background: #353535;
+}

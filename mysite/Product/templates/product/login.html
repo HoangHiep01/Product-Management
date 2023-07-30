@@ -1,0 +1,19 @@
+<div class="container-form">
+	<h1>Đăng nhập</h1>
+	<form method="POST" action="{% url 'home' %}">
+		{% csrf_token %}
+		<div class="container-form-information">	
+			<div class="container-form-information-user">
+				<input type="text" class="form-control" name="username" placeholder="Tên đăng nhập" required>
+			</div>
+			
+			<div class="container-form-information-user">
+				<input type="password" class="form-control" name="password" placeholder="Mật khẩu" required>
+			</div>
+			
+			<div class="container-form-button">	
+				<button type="submit" class="button-login"><span class="button-login-text">Đăng nhập</span></button>
+			</div>
+		</div>	
+	</form>
+</div>
