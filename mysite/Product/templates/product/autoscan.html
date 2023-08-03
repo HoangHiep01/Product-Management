@@ -1,0 +1,55 @@
+{% extends 'product/base.html' %}
+
+{% block scan %}
+
+{% if user.is_authenticated %}
+	<py-config>
+      packages = ["socket"]
+    </py-config>
+	<h1>Quét mã</h1>
+	<div class="container-scan">
+
+		<py-script>
+			import socket
+
+			# Định nghĩa host và port mà server sẽ chạy và lắng nghe
+			host = 'localhost'
+			port = 4000
+			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			s.bind((host, port))
+
+			s.listen(1) # 1 ở đây có nghĩa chỉ chấp nhận 1 kết nối
+			print("Server listening on port: ", port)
+
+			conn, addr = s.accept()
+			print("Connect from ", str(addr))
+
+			# #server sử dụng kết nối gửi dữ liệu tới client dưới dạng binary
+			# conn.send(b"Hello, how are you")
+			# conn.send(b"Bye")
+
+			message = conn.recv(1024).decode()
+			print('Message: ', message)
+			
+			# Kích form with id_product = message
+
+			conn.close()
+		</py-script>
+		<form method="POST" action="{% url 'detail' %}" class="scan-form">
+			{% csrf_token %}
+			<div class="container-scan-item">
+				<div class="container-scan-item-input">
+					<input type="text" class="form-control" name="id_product" placeholder="ID product" required value={{ID_auto}}>
+				</div>
+				<div class="container-scan-item-button">
+					<button type="submit" class="button-scan"><span class="button-scan-text">Quét</span></button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+{% else %}
+	{% include 'product/login.html' %}
+{% endif %}
+
+{% endblock %}
