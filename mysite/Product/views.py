@@ -38,6 +38,8 @@ def scan_ID(request):
 	context = {
 		'ID_auto' : 'ID0000'
 	}
+	if request.method == 'POST':
+		context['ID_auto'] = request.POST['postData']
 	return render(request, 'product/scan.html', context) 
 
 # def take_ID(request):
