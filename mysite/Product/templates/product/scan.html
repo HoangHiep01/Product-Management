@@ -1,6 +1,6 @@
 {% extends 'product/base.html' %}
 
-{% load static}
+{% load static %}
 
 {% block scan %}
 	
@@ -18,10 +18,5 @@
 			</div>
 		</form>
 	</div>
-<script defer src="https://pyscript.net/latest/pyscript.js"></script>
-<py-config>
-      packages = ["websockets", "asyncio"]
-</py-config>
-<py-script src='static/script/server.py'></py-script>
 <script type="text/javascript" src="static/script/server.js"></script>
 {% endblock %}
