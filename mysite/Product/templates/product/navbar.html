@@ -6,18 +6,9 @@
 
 	<div class="function">
 		<ul class="navbar-list-item">
-			{% if user.is_authenticated %}
 			<li class="nav-item">
 				<a href="{% url 'scan' %}" class="item">Quét mã</a>
 			</li>
-			<li class="nav-item">
-				<a href="{% url 'logout' %}" class="item">Đăng xuất</a>
-			</li>
-			{% else %}
-			<li class="nav-item">
-				<a href="{% url 'home' %}" class="item">Đăng nhập</a>
-			</li>
-			{% endif %}
 		</ul>
 	</div>
 </nav>

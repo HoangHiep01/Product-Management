@@ -2,7 +2,6 @@
 
 {% block scan %}
 
-{% if user.is_authenticated %}
 	<h1>Quét mã</h1>
 	<div class="container-scan">
 		<form method="POST" action="{% url 'detail' %}" class="scan-form">
@@ -17,9 +16,5 @@
 			</div>
 		</form>
 	</div>
-
-{% else %}
-	{% include 'product/login.html' %}
-{% endif %}
 
 {% endblock %}

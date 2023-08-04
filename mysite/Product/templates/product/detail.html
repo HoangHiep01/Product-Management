@@ -2,7 +2,7 @@
 
 {% block detail %}
 
-{% if user.is_authenticated %}
+
 	<h1>Thông tin chi tiết</h1>
 	{# Hiện thị thông tin #}
 
@@ -21,8 +21,5 @@
 		</div>
 	</div>
 
-{% else %}
-	{% include 'product/login.html' %}
-{% endif %}
 
 {% endblock %}
