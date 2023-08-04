@@ -1,14 +1,16 @@
 {% extends 'product/base.html' %}
 
-{% block scan %}
+{% load static}
 
+{% block scan %}
+	
 	<h1>Quét mã</h1>
 	<div class="container-scan">
-		<form method="POST" action="{% url 'detail' %}" class="scan-form">
+		<form method="POST" action="{% url 'detail' %}" class="scan-form" id="scanForm">
 			{% csrf_token %}
 			<div class="container-scan-item">
 				<div class="container-scan-item-input">
-					<input type="text" class="form-control" name="id_product" placeholder="ID product" required value={{ID_auto}}>
+					<input id="idInput" type="text" class="form-control" name="id_product" placeholder="ID product" required value={{ID_auto}}>
 				</div>
 				<div class="container-scan-item-button">
 					<button type="submit" class="button-scan"><span class="button-scan-text">Quét</span></button>
@@ -16,5 +18,10 @@
 			</div>
 		</form>
 	</div>
-
+<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+<py-config>
+      packages = ["websockets", "asyncio"]
+</py-config>
+<py-script src='static/script/server.py'></py-script>
+<script type="text/javascript" src="static/script/server.js"></script>
 {% endblock %}
