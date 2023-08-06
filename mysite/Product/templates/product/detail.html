@@ -3,25 +3,31 @@
 {% load static %}
 
 {% block detail %}
+<div class="col-md-6 offset-md-3">
+	<h2>Thông tin sản phẩm</h2>
+	<div class="card mb-3" style="max-width: 1440px;">
+		<div class="row g-0">
 
+			<div class="col-md-4">
+			  	<img src="{{product.img}}" class="img-fluid rounded-start" alt="Ảnh minh họa">
+			</div>
 
-	<h1>Thông tin chi tiết</h1>
-	{# Hiện thị thông tin #}
+			<div class="col-md-8">
+				<div class="card-body">
+					<h5 class="card-title"><strong>Tên: </strong>{{product.title}}</h5>
+					<p class="card-text"><strong>Số lượng: </strong>{{product.amount}}</p>
+					<p class="card-text"><strong>Giá: </strong>{{product.price}}đ</p>
+					<p class="card-text"><strong>Mô tả: </strong>{{product.description}}</p>
+					<p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+				</div>
+			</div>
 
-	{# {%load static %} #}
-	<div class="product-detail card">
-		{# <img src="{% static '/img/QOUTE.jpg' %}" alt="Ảnh sản phẩm"> #}
-		<div class="container-img">
-			<img src='/../{{ product.img }}' alt="Ảnh sản phẩm">
-		</div>
-		<div class="container-other-product-information">
-			<p class="title"><span class="attribute title">Tên:</span> {{product.title}}</p>
-			<p><span class="attribute amount">Số lượng:</span> {{product.amount}}</p>
-			<p><span class="attribute price">Giá:</span> {{product.price}}đ</p>
-			<p><span class="attribute description">Mô tả:</span> {{product.description}}</p>
-			{# <p><span class="attribute">Mô tả:</span> {{product.img}}</p> #}
 		</div>
 	</div>
+	<a class="btn btn-dark" href="{% url 'scan' %}" role="button">Quay lại</a>
+	<a class="btn btn-primary" href="{% url 'update' product.id_product %}" role="button">Cập nhật</a>
+	<a class="btn btn-danger" href="{% url 'delete' product.id_product %}" role="button">Xóa</a>
+</div>
 
 <script src="static/script/server.js"></script>
 

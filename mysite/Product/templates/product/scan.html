@@ -3,20 +3,20 @@
 {% load static %}
 
 {% block scan %}
-	
-	<h1>Quét mã</h1>
-	<div class="container-scan">
-		<form method="POST" action="{% url 'detail' %}" class="scan-form" id="scanForm">
-			{% csrf_token %}
-			<div class="container-scan-item">
-				<div class="container-scan-item-input">
-					<input id="idInput" type="text" class="form-control" name="id_product" placeholder="ID product" required value={{ID_auto}}>
-				</div>
-				<div class="container-scan-item-button">
-					<button type="submit" class="button-scan"><span class="button-scan-text">Quét</span></button>
-				</div>
-			</div>
-		</form>
-	</div>
+
+<div class="col-md-6 offset-md-3">
+	<form method="POST" action="{% url 'detail' %}" class="scan-form" id="scanForm">
+
+		<div class="mb-3">
+			<label for="exampleInputEmail1" class="form-label">Quét mã sản phẩm</label>
+			<input type="text" class="form-control" id="exampleInputID" name="id_product" value="{{ID_auto}}" required placeholder="ID product">
+		</div>
+
+
+	  <button type="submit" class="btn btn-primary">Quét</button>
+	</form>
+</div>
+
 <script type="text/javascript" src="static/script/server.js"></script>
+
 {% endblock %}

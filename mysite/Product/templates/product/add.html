@@ -1,0 +1,21 @@
+{% extends 'product/base.html' %}
+
+
+{% block add_product %}
+
+
+<div class="col-md-6 offset-md-3">
+	<h1>Thêm mới</h1>
+	<br>
+	<form method="POST" action="{% url 'add' %}" enctype="multipart/form-data">
+		{% csrf_token %}
+
+		{{ form.as_p }}
+
+		<br>
+		<button type="submit" class="btn btn-secondary">Thêm</button>
+	</form>
+
+</div>
+
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from .forms import AddProductForm
 from .models import Product
 
 
@@ -72,3 +73,31 @@ def detail2(request, id_product):
 
 	product = get_object_or_404(Product, pk=id_product)
 	return render(request, 'product/detail.html', {'product' : product})
+
+def delete(request, id_product):
+
+	product = Product.objects.get(pk=id_product)
+	product.delete()
+	messages.success(request,"Đã xóa sản phẩm.")
+	return redirect('home')
+
+def add(request):
+	form = AddProductForm(request.POST or None, request.FILES or None)
+	if request.method == "POST":
+		if form.is_valid():
+			add = form.save()
+			print(add)
+			messages.success(request, "Product added successfully.")
+			return redirect('home')
+	else:
+		return render(request, 'product/add.html', {'form':form})
+
+def update(request, id_product):
+
+	current_product = Product.objects.get(pk=id_product)
+	form = AddProductForm(request.POST or None, request.FILES or None, instance=current_product)
+	if form.is_valid():
+		form.save()
+		messages.success(request, "Cập nhật thành công")
+		return redirect('home')
+	return render(request, 'product/update.html', {'form':form})
