@@ -14,6 +14,7 @@ window.addEventListener("DOMContentLoaded", () => {
     console.log("Message.");
     document.getElementById("idInput").value = event.data;
     // document.getElementById('scanForm').submit();
+    socket.send("Hello Server!");
     // const message = document.createElement("li");
     // const content = document.createTextNode(event);
     // message.appendChild(content);

@@ -8,10 +8,13 @@ import socket
 # Create your views here.
 
 def home(request):
-	# if request.method == 'POST':
-	# 	login_user(request)
 	
-	return render(request, 'product/home.html', {})
+	products = Product.objects.all()
+	data = {
+		'products' : products, 
+	}
+	
+	return render(request, 'product/home.html', data)
 
 def login_user(request):
 
