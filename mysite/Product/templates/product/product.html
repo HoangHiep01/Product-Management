@@ -6,14 +6,14 @@
 
 {% block detail %}
 
-<link rel="stylesheet" href="static/CSS/disable.css">
+<link rel="stylesheet" href="../static/CSS/disable.css">
 <div class="col-md-6 offset-md-3">
 	<h2>Thông tin sản phẩm</h2>
 	<div class="card mb-3" style="max-width: 1440px;">
 		<div class="row g-0">
 
 			<div class="col-md-4">
-			  	<img src="{{product.img}}" class="img-fluid rounded-start" alt="Ảnh minh họa">
+			  	<img src="../{{product.img}}" class="img-fluid rounded-start" alt="Ảnh minh họa">
 			</div>
 
 			<div class="col-md-8">
@@ -41,6 +41,6 @@
 	<a class="btn btn-danger" href="{% url 'delete' product.id_product %}" role="button">Xóa</a>
 </div>
 
-<script src="static/script/valid_input.js"></script>
+<script src="../static/script/valid_input.js"></script>
 
 {% endblock %}

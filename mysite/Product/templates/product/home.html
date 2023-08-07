@@ -17,7 +17,7 @@
 	{% if products %}
 		{% for product in products %}
 			<tr>
-		      <th scope="row"><a href="{% url 'detail2' product.id_product %}">{{product.id_product}}</a></th>
+		      <th scope="row"><a href="{% url 'product' product.id_product %}">{{product.id_product}}</a></th>
 		      <td>{{product.title}}</td>
 		      <td>{{product.description}}</td>
 		    </tr>

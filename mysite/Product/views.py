@@ -69,10 +69,10 @@ def detail(request):
 
 	return render(request, 'product/detail.html', {'product' : product})
 
-def detail2(request, id_product):
+def product(request, id_product):
 
 	product = get_object_or_404(Product, pk=id_product)
-	return render(request, 'product/detail.html', {'product' : product})
+	return render(request, 'product/product.html', {'product' : product})
 
 def delete(request, id_product):
 
@@ -101,3 +101,19 @@ def update(request, id_product):
 		messages.success(request, "Cập nhật thành công")
 		return redirect('home')
 	return render(request, 'product/update.html', {'form':form})
+
+def port(request, id_product):
+
+	if request.method == "POST":
+		product = Product.objects.get(pk=id_product)
+		if request.POST['action'] == "Import":
+			product.amount += int(request.POST['amount'])
+			messages.success(request, "Import successfully")
+		if request.POST['action'] == "Export":
+			product.amount -= int(request.POST['amount'])
+			messages.success(request, "Export successfully")
+		product.save()
+		return render(request, 'product/product.html', {'product' : product})
+	else:
+		messages.success(request, "Failed")
+		return redirect('home')
