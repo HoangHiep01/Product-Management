@@ -2,11 +2,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import AddProductForm
-from .models import Product
+from .models import Product, History
 
 
-import socket
+# import socket
 # Create your views here.
+
+def save_history(action='undefined', id_product='undefined', amount_on_action=0, amount_exists_on_time=0, user='undefined'):
+	history = History.objects.all()
+	history.create(action=action, id_product=id_product, amount_on_action=amount_on_action, amount_exists_on_time=amount_exists_on_time, user=user)
 
 def home(request):
 	
@@ -84,6 +88,7 @@ def delete(request, id_product):
 
 	product = Product.objects.get(pk=id_product)
 	product.delete()
+	save_history(action="DELETE", id_product=id_product, amount_on_action=product.amount, amount_exists_on_time=product.amount)
 	messages.success(request,"Đã xóa sản phẩm.")
 	return redirect('home')
 
@@ -92,7 +97,7 @@ def add(request):
 	if request.method == "POST":
 		if form.is_valid():
 			add = form.save()
-			print(add)
+			save_history(action="ADD", id_product=request.POST['id_product'], amount_on_action=request.POST['amount'])
 			messages.success(request, "Thêm sản phẩm thành công")
 			return redirect('home')
 	else:
@@ -104,6 +109,7 @@ def update(request, id_product):
 	form = AddProductForm(request.POST or None, request.FILES or None, instance=current_product)
 	if form.is_valid():
 		form.save()
+		save_history(action="UPDATE", id_product=id_product)
 		messages.success(request, "Cập nhật thành công")
 		return redirect('home')
 	return render(request, 'product/update.html', {'form':form})
@@ -113,9 +119,11 @@ def port(request, id_product):
 	if request.method == "POST":
 		product = Product.objects.get(pk=id_product)
 		if request.POST['action'] == "Import":
+			save_history(action="IMPORT", id_product=id_product, amount_on_action=int(request.POST['amount']), amount_exists_on_time=product.amount)
 			product.amount += int(request.POST['amount'])
 			messages.success(request, "Nhập thành công.")
 		if request.POST['action'] == "Export":
+			save_history(action="EXPORT", id_product=id_product, amount_on_action=int(request.POST['amount']), amount_exists_on_time=product.amount)
 			product.amount -= int(request.POST['amount'])
 			messages.success(request, "Xuất thành công.")
 		product.save()
@@ -123,3 +131,10 @@ def port(request, id_product):
 	else:
 		messages.success(request, "Failed")
 		return redirect('home')
+
+def history(request):
+	historys = History.objects.all()
+	data = {
+		'historys' : historys
+	}
+	return render(request, 'product/history.html', data)

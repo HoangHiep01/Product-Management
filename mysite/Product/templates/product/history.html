@@ -1,0 +1,39 @@
+{% extends 'product/base.html' %}
+
+{% block history %}
+<h1>Danh sách</h1>
+
+<table class="table table-hover table-info table-striped table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Hành động</th>
+      <th scope="col">Mã sản phẩm</th>
+      <th scope="col">Số lượng tác động</th>
+      <th scope="col">Số lượng tồn tại trước</th>
+      <th scope="col">Người thực hiện</th>
+      <th scope="col">Thời điểm</th>
+    </tr>
+  </thead>
+  <tbody class="table">
+  	
+{% load tz %}
+
+
+	{% if historys %}
+		{% for history in historys %}
+			<tr>
+		      <th scope="row">{{history.action}}</th>
+		      <td>{{history.id_product}}</td>
+		      <td>{{history.amount_on_action}}</td>
+		      <td>{{history.amount_exists_on_time}}</td>
+		      <td>{{history.user}}</td>
+					{% localtime on %}
+		      <td>{{ history.action_on_time|localtime }}</td>
+					{% endlocaltime %}
+		  </tr>
+		{% endfor %}
+	{% endif %}
+  </tbody>
+</table>
+
+{% endblock %}
