@@ -29,7 +29,7 @@ def login_user(request):
 		return redirect('home')
 	else:
 		print("Failed")
-		messages.success(request, f"Không tìm thấy tài khoản.")
+		messages.error(request, f"Không tìm thấy tài khoản.")
 		return redirect('home')
 
 def logout_user(request):
@@ -58,16 +58,22 @@ def scan_ID(request):
 
 def detail(request):
 	
-	print("Detail: ", request.method)
+	# print("Detail: ", request.method)
 	if request.method == 'POST':
-		print("Detail if: ", request.POST['id_product'])
+		# print("Detail if: ", request.POST['id_product'])
 		id_product = request.POST['id_product']
-		product = get_object_or_404(Product, pk=id_product)
-		
-		# product.img = product.img[15:]
-		# print(product.img)
+		# product = get_object_or_404(Product, pk=id_product)
+		list_product = Product.objects.filter(pk=id_product)
+		if list_product.exists():
+			product = Product.objects.get(pk=id_product)
+			return render(request, 'product/detail.html', {'product' : product})
+		else:
+			messages.warning(request, f"Không tìm thấy sản phẩm có mã {id_product}. Bạn có thể sản phẩm mới.")
+			# return render(request, 'product/scan.html', {'ID_auto' : f'{id_product}'})
+			return redirect('scan')
 
-	return render(request, 'product/detail.html', {'product' : product})
+	return redirect('home')
+
 
 def product(request, id_product):
 
@@ -87,7 +93,7 @@ def add(request):
 		if form.is_valid():
 			add = form.save()
 			print(add)
-			messages.success(request, "Product added successfully.")
+			messages.success(request, "Thêm sản phẩm thành công")
 			return redirect('home')
 	else:
 		return render(request, 'product/add.html', {'form':form})
@@ -108,10 +114,10 @@ def port(request, id_product):
 		product = Product.objects.get(pk=id_product)
 		if request.POST['action'] == "Import":
 			product.amount += int(request.POST['amount'])
-			messages.success(request, "Import successfully")
+			messages.success(request, "Nhập thành công.")
 		if request.POST['action'] == "Export":
 			product.amount -= int(request.POST['amount'])
-			messages.success(request, "Export successfully")
+			messages.success(request, "Xuất thành công.")
 		product.save()
 		return render(request, 'product/product.html', {'product' : product})
 	else:
