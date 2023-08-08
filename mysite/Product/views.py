@@ -70,6 +70,8 @@ def detail(request):
 		list_product = Product.objects.filter(pk=id_product)
 		if list_product.exists():
 			product = Product.objects.get(pk=id_product)
+			# product.img = product.img.replace('Product/','')
+			print(product.img, type(product.img))
 			return render(request, 'product/detail.html', {'product' : product})
 		else:
 			messages.warning(request, f"Không tìm thấy sản phẩm có mã {id_product}. Bạn có thể sản phẩm mới.")
