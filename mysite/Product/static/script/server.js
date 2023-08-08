@@ -12,7 +12,7 @@ window.addEventListener("DOMContentLoaded", () => {
   // document.body.appendChild(messages);
   socket.onmessage = function(event) {
     console.log("Message.");
-    document.getElementById("idInput").value = event.data;
+    document.getElementById("exampleInputID").value = event.data;
     // document.getElementById('scanForm').submit();
     socket.send("Hello Server!");
     // const message = document.createElement("li");
