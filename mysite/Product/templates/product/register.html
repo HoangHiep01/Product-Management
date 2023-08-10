@@ -1,0 +1,35 @@
+{% extends 'product/base.html' %}
+
+{% block register %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static "CSS/register.css" %}">
+
+<div class="container-form">
+	
+	<h1>Đăng ký</h1>
+
+	<form method="POST" action="{% url 'register' %}">
+		{% csrf_token %}
+
+		{% if form.errors %}
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				Lỗi biểu mẫu đăng ký
+				{% for field in form %}
+					{% if field.errors %}
+						{{field.errors}}
+					{% endif %}
+				{% endfor %}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		{% endif %}
+
+		{{ form.as_p}}
+
+		<div class="container-form-button">
+			<button type="submit" class="btn btn-register"><span class="button-login-text">Đăng ký</span></button>
+		</div>
+	</form>
+</div>
+
+{% endblock %}

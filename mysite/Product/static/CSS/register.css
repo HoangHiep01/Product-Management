@@ -1,0 +1,18 @@
+
+.helptext {
+	width: 100%;
+	max-height: 10%;
+	height: 0.75rem;
+}
+
+.form-text, .text-muted, .small {
+	width: 100%;
+	max-height: auto;
+	color: whitesmoke;
+	font-size: 0.75rem;
+}
+
+.btn-register {
+	width: 25%;
+	max-height: auto;
+}

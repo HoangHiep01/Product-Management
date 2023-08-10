@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from .forms import SignUpForm
 from .models import Product
 
 
@@ -40,16 +41,6 @@ def scan_ID(request):
 	}
 	return render(request, 'product/scan.html', context) 
 
-# def take_ID(request):
-
-# 	print("Take: ", request.method)
-# 	if request.method == 'POST':
-# 		print("Take if: ", request.POST['id_product'])
-# 		id_product = request.POST['id_product']
-# 		detail(request, id_product)
-# 	else:
-# 		return redirect('scan') 
-
 def detail(request):
 	
 	print("Detail: ", request.method)
@@ -63,7 +54,24 @@ def detail(request):
 
 	return render(request, 'product/detail.html', {'product' : product})
 
-def detail2(request, id_product):
+def product(request, id_product):
 
 	product = get_object_or_404(Product, pk=id_product)
-	return render(request, 'product/detail.html', {'product' : product})
+	return render(request, 'product/product.html', {'product' : product})
+
+def register_user(request):
+	
+	if request.method == 'POST':
+		form = SignUpForm(request.POST)
+		if form.is_valid():
+			form.save()
+
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password1']
+			user = authenticate(username=username, password=password)
+			login(request, user)
+			messages.success(request, "Đăng ký thành công!")
+			return redirect('home')
+	else:
+		form = SignUpForm()
+		return render(request, 'product/register.html', {'form':form})

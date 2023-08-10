@@ -6,7 +6,7 @@ import PIL
 class Product(models.Model):
 	id_product = models.CharField(max_length=20, primary_key=True)
 	title = models.CharField(max_length=100, null=False)
-	img = models.ImageField(upload_to="static/product/", null=True)
+	img = models.ImageField(upload_to="Product/static/img", null=True)
 	amount = models.IntegerField(default=0, null=False)
 	price = models.DecimalField(max_digits=12, decimal_places=2)
 	description = models.TextField(blank=True, null=True)
