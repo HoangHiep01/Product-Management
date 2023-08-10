@@ -1,5 +1,4 @@
-<nav class="navbar">
-
+<nav>
 	<div class="homepage">
 		<a href="{% url 'home' %}" class="pagename">Product</a>
 	</div>
@@ -9,6 +8,12 @@
 			{% if user.is_authenticated %}
 			<li class="nav-item">
 				<a href="{% url 'scan' %}" class="item">Quét mã</a>
+			</li>
+			<li class="nav-item">
+				<a href="{% url 'add' %}" class="item">Thêm mới</a>
+			</li>
+			<li class="nav-item">
+				<a href="{% url 'history' %}" class="item" >Lịch sử</a>
 			</li>
 			<li class="nav-item">
 				<a href="{% url 'logout' %}" class="item">Đăng xuất</a>

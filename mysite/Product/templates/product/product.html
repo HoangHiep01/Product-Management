@@ -6,6 +6,7 @@
 	<h1>Thông tin chi tiết</h1>
 
 	{%load static %}
+	<link rel="stylesheet" href="{% static 'CSS/disable.css' %}">
 	<div class="product-detail card">
 		<div class="container-img">
 			<img src='../{{product.img}}' alt="Ảnh sản phẩm">
@@ -15,9 +16,23 @@
 			<p><span class="attribute amount">Số lượng:</span> {{product.amount}}</p>
 			<p><span class="attribute price">Giá:</span> {{product.price}}đ</p>
 			<p><span class="attribute description">Mô tả:</span> {{product.description}}</p>
+			<form method="POST" action="{% url 'port' product.id_product %}" class="scan-form" id="scanForm">
+
+				<div class="mb-3">
+					<input type="number" class="form-control" id="exampleInputID" name="amount" required placeholder="Số lượng" oninput="valid_input({{product.amount}}, event)">
+				</div>
+				<input type="submit" name="action" value="Import" class="btn btn-info disable" id="Import"/>
+				<input type="submit" name="action" value="Export" class="btn btn-info disable" id="Export"/>
+			</form>
 		</div>
 	</div>
 
+	<a class="btn btn-dark" href="{% url 'home' %}" role="button">Quay lại</a>
+	<a class="btn btn-primary" href="{% url 'update' product.id_product %}" role="button">Cập nhật</a>
+	<a class="btn btn-danger" href="{% url 'delete' product.id_product %}" role="button" onclick="return ConfirmDelete();">Xóa</a>
+
+	<script src='{% static "script/delete_confirm.js" %}'></script>
+	<script src='{% static "script/valid_input.js" %}'></script>
 {% else %}
 	{% include 'product/login.html' %}
 {% endif %}

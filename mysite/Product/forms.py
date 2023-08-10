@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import Product
 
 class SignUpForm(UserCreationForm):
 	email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form register-form form-control', 'placeholder':'Email Address'}))
@@ -31,12 +32,16 @@ class SignUpForm(UserCreationForm):
 		self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'	
 
 
+class AddProductForm(forms.ModelForm):
 
+	id_product = forms.CharField( required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Mã sản phẩm", "class":"form-control"}), label="")
+	title = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Tên sản phẩm", "class":"form-control"}), label="")
+	img = forms.ImageField()
+	amount = forms.IntegerField(required=True, widget=forms.widgets.NumberInput(attrs={"placeholder":"Só lượng sản phẩm", "class":"form-control"}), label="")
+	price = forms.DecimalField(required=True, widget=forms.widgets.NumberInput(attrs={"placeholder":"Giá sản phẩm", "class":"form-control"}), label="")
+	description = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={"placeholder":"Mô tả sản phẩm", "class":"form-control"}), label="")
+	company = forms.CharField(widget=forms.widgets.TextInput(attrs={"placeholder":"Tên công ty", "class":"form-control"}), label="")
 
-
-
-
-
-
-
-
+	class Meta():
+		model = Product
+		exclude = ("user","",)
