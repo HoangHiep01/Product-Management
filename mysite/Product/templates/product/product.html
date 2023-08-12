@@ -26,10 +26,11 @@
 			</form>
 		</div>
 	</div>
-
+<div class="container-function-card">
 	<a class="btn btn-dark" href="{% url 'home' %}" role="button">Quay lại</a>
 	<a class="btn btn-primary" href="{% url 'update' product.id_product %}" role="button">Cập nhật</a>
 	<a class="btn btn-danger" href="{% url 'delete' product.id_product %}" role="button" onclick="return ConfirmDelete();">Xóa</a>
+</div>
 
 	<script src='{% static "script/delete_confirm.js" %}'></script>
 	<script src='{% static "script/valid_input.js" %}'></script>

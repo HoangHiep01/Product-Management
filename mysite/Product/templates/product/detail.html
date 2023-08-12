@@ -20,11 +20,13 @@
 				<div class="mb-3">
 					<input type="number" class="form-control" id="exampleInputID" name="amount" required placeholder="Số lượng" oninput="valid_input({{product.amount}}, event)">
 				</div>
+				<div class="container-input-submit-action">
 					<input type="submit" name="action" value="Import" class="btn btn-info disable" id="Import"/>
 					<input type="submit" name="action" value="Export" class="btn btn-info disable" id="Export"/>
+				</div>
 			</form>
 		</div>
-</div>
+</div class="container-function-card">
 	<a class="btn btn-dark" href="{% url 'scan' %}" role="button">Quay lại</a>
 	<a class="btn btn-primary" href="{% url 'update' product.id_product %}" role="button">Cập nhật</a>
 	<a class="btn btn-danger" href="{% url 'delete' product.id_product %}" role="button" onclick="return ConfirmDelete();">Xóa</a>

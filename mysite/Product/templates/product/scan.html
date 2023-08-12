@@ -5,18 +5,19 @@
 {% block scan %}
 
 {% if user.is_authenticated %}
-	<div class="col-md-6 offset-md-3">
+<link rel="stylesheet" href="{% static 'CSS/scan.css' %}">
+<div class="scan container-scan-page">
 		<form method="POST" action="{% url 'detail' %}" class="scan-form" id="scanForm">
-
-			<div class="mb-3">
-				<label for="exampleInputID" class="form-label">Quét mã sản phẩm</label>
-				<input type="text" class="form-control" id="exampleInputID" name="id_product" value="{{ID_auto}}" required placeholder="ID product">
+			<div class="container-scan-item">
+				<div class="container-scan-item-input">
+					<input type="text" class="form-control" id="exampleInputID" name="id_product" value="{{ID_auto}}" required placeholder="ID product">
+				</div>
+				<div class="container-scan-item-button">		
+			  		<button type="submit" class="btn btn-primary button-scan"><span class="button-scan-text">Quét</span></button>
+				</div>
 			</div>
-
-
-		  <button type="submit" class="btn btn-primary">Quét</button>
 		</form>
-	</div>
+</div>
 
 	<script src="Product/static/script/websocket_scan.js"></script>
 {% else %}

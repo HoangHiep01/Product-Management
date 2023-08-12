@@ -3,6 +3,8 @@
 {% block home %}
 {% if user.is_authenticated %}
 	{% if products %}
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'CSS/table.css' %}">
 		<h1>Danh sách</h1>
 		<table class="table table-hover table-info table-striped table-bordered">
 		  <thead class="table-dark">

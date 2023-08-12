@@ -4,16 +4,17 @@
 {% block add_product %}
 
 
-<div class="col-md-6 offset-md-3">
+<div class="container-form">
 	<h1>Thêm mới</h1>
 	<br>
 	<form method="POST" action="{% url 'add' %}" enctype="multipart/form-data">
 		{% csrf_token %}
 
-		{{ form.as_p }}
+			{{ form.as_p }}
 
-		<br>
-		<button type="submit" class="btn btn-secondary">Thêm</button>
+		<div class="container-form-button">
+			<button type="submit" class="btn btn-secondary">Thêm</button>
+		</div>
 	</form>
 
 </div>
