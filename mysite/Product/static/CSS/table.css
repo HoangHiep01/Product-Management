@@ -1,0 +1,30 @@
+table, thead, tbody, tr, th, td {
+	border: 1px solid;
+	color: darkgrey;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  background-color: var(--NAV-BGCOLOR);;
+}
+
+td {
+  text-align: center;
+}
+
+
+tr:nth-child(even) {
+	background-color: #CDEEEA;
+}
+
+tr:hover {
+	background-color: white;
+	color: black;
+}

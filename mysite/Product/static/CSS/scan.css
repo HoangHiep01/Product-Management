@@ -1,0 +1,56 @@
+/*|| Scan*/
+
+.container-scan-page {
+	width: 100%;
+/*	height: max(20vh, calc(100%));*/
+	height: 20vh;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.scan-form {
+	width: 100%;
+	height: 100%;
+}
+
+.container-scan-item {
+	width: 50%;
+	height: 100%;
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.container-scan-item-input {
+	width: 50%;
+	height: 100%;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.container-scan-item-button {
+	width: 50%;
+	height: 100%;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+input.form-control-ID {
+	width: 80%;
+	height: 100%;
+}
+
+.button-scan {
+	width: 25%;
+	height: 25%;
+}
+
+.button-scan-text {
+	font: 1rem;
+	font-weight: bold;
+}
