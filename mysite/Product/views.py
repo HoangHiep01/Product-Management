@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm, AddProductForm
 from .models import Product, History
+import functools
 
 
 # import socket
@@ -97,80 +98,77 @@ def register_user(request):
 		form = SignUpForm()
 		return render(request, 'product/register.html', {'form':form})
 
+def auth_decorator(func):
+
+	@functools.wraps(func)
+	def warpper(*args, **kwargs):
+		request = args[0]
+		if request.user.is_authenticated:
+			result = func(*args, **kwargs)
+			return result
+		else:
+			print("Decorator is working.")
+			messages.warning(request, "Bạn cần đăng nhập để thực hiện chức năng")
+			return redirect('home')
+	return warpper
+
+@auth_decorator
 def delete(request, id_product):
-	if request.user.is_authenticated:
-		product = Product.objects.get(pk=id_product)
-		product.delete()
-		save_history(request=request, action="DELETE", id_product=id_product, amount_on_action=product.amount, amount_exists_on_time=product.amount)
-		messages.success(request,"Đã xóa sản phẩm.")
-		return redirect('home')
-	else:
-		messages.warning(request, "Bạn cần đăng nhập để thực hiện chức năng")
-		return redirect('home')
+	product = Product.objects.get(pk=id_product)
+	product.delete()
+	save_history(request=request, action="DELETE", id_product=id_product, amount_on_action=product.amount, amount_exists_on_time=product.amount)
+	messages.success(request,"Đã xóa sản phẩm.")
+	return redirect('home')
 
-
+@auth_decorator
 def add(request):
 
-	if request.user.is_authenticated:
-		form = AddProductForm(request.POST or None, request.FILES or None)
-		if request.method == "POST":
-			if form.is_valid():
-				add = form.save()
-				save_history(request=request, action="ADD", id_product=request.POST['id_product'], amount_on_action=request.POST['amount'])
-				messages.success(request, "Thêm sản phẩm thành công")
-				return redirect('home')
-		else:
-			return render(request, 'product/add.html', {'form':form})
+	form = AddProductForm(request.POST or None, request.FILES or None)
+	if request.method == "POST":
+		if form.is_valid():
+			add = form.save()
+			save_history(request=request, action="ADD", id_product=request.POST['id_product'], amount_on_action=request.POST['amount'])
+			messages.success(request, "Thêm sản phẩm thành công")
+			return redirect('home')
 	else:
-		messages.warning(request, "Bạn cần đăng nhập để thực hiện chức năng")
-		return redirect('home')
+		return render(request, 'product/add.html', {'form':form})
 
+@auth_decorator
 def update(request, id_product):
 
-	if request.user.is_authenticated:
-
-		current_product = Product.objects.get(pk=id_product)
-		form = AddProductForm(request.POST or None, request.FILES or None, instance=current_product)
-		if form.is_valid():
-			form.save()
-			save_history(request=request, action="UPDATE", id_product=id_product)
-			messages.success(request, "Cập nhật thành công")
-			return redirect('home')
-		return render(request, 'product/update.html', {'form':form})
-	else:
-		messages.warning(request, "Bạn cần đăng nhập để thực hiện chức năng")
+	current_product = Product.objects.get(pk=id_product)
+	form = AddProductForm(request.POST or None, request.FILES or None, instance=current_product)
+	if form.is_valid():
+		form.save()
+		save_history(request=request, action="UPDATE", id_product=id_product)
+		messages.success(request, "Cập nhật thành công")
 		return redirect('home')
+	return render(request, 'product/update.html', {'form':form})
 
+@auth_decorator
 def port(request, id_product):
 
-	if request.user.is_authenticated:
-		if request.method == "POST":
-			product = Product.objects.get(pk=id_product)
-			if request.POST['action'] == "Import":
-				save_history(request=request, action="IMPORT", id_product=id_product, amount_on_action=int(request.POST['amount']), amount_exists_on_time=product.amount)
-				product.amount += int(request.POST['amount'])
-				messages.success(request, "Nhập thành công.")
-			if request.POST['action'] == "Export":
-				save_history(request=request, action="EXPORT", id_product=id_product, amount_on_action=int(request.POST['amount']), amount_exists_on_time=product.amount)
-				product.amount -= int(request.POST['amount'])
-				messages.success(request, "Xuất thành công.")
-			product.save()
-			return render(request, 'product/product.html', {'product' : product})
-		else:
-			messages.success(request, "Failed")
-			return redirect('home')
+	if request.method == "POST":
+		product = Product.objects.get(pk=id_product)
+		if request.POST['action'] == "Import":
+			save_history(request=request, action="IMPORT", id_product=id_product, amount_on_action=int(request.POST['amount']), amount_exists_on_time=product.amount)
+			product.amount += int(request.POST['amount'])
+			messages.success(request, "Nhập thành công.")
+		if request.POST['action'] == "Export":
+			save_history(request=request, action="EXPORT", id_product=id_product, amount_on_action=int(request.POST['amount']), amount_exists_on_time=product.amount)
+			product.amount -= int(request.POST['amount'])
+			messages.success(request, "Xuất thành công.")
+		product.save()
+		return render(request, 'product/product.html', {'product' : product})
 	else:
-		messages.warning(request, "Bạn cần đăng nhập để thực hiện chức năng")
+		messages.success(request, "Failed")
 		return redirect('home')
-
+			
+@auth_decorator
 def history(request):
 
-	if request.user.is_authenticated:
-		historys = History.objects.all()
-		data = {
-			'historys' : historys
-		}
-		return render(request, 'product/history.html', data)
-	else:
-		messages.warning(request, "Bạn cần đăng nhập để thực hiện chức năng")
-		return redirect('home')
+	historys = History.objects.all()
+	data = {
+		'historys' : historys
+	}
+	return render(request, 'product/history.html', data)
